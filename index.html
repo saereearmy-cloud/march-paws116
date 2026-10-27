@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Field Casualty Care System NOMS 116</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFFFFF;--ink:#111827;--soft:#475569;--card:#fff;--line:#CBD5E1;--navy:#1E293B;--blue:#2563EB;--green:#16A34A;--red:#DC2626;--sky:#0284C7;--field:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media not all{:root:not([data-theme="light"]){--bg:#0B1220;--ink:#E2E8F0;--soft:#94A3B8;--card:#131C2E;--line:#2B3852;--navy:#22304A;--blue:#6EA0FF;--field:#0F1829}}
+:root[data-theme="dark"]{--bg:#0B1220;--ink:#E2E8F0;--soft:#94A3B8;--card:#131C2E;--line:#2B3852;--navy:#22304A;--blue:#6EA0FF;--field:#0F1829}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'Sarabun',system-ui,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+.top{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+.top h1{font-size:22px;margin:0}.top small{color:var(--soft)}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.b{border:0;border-radius:8px;padding:10px 14px;color:#fff;font:700 15px 'Sarabun',sans-serif;cursor:pointer}
+.b.r{background:var(--red)}.b.g{background:var(--green)}.b.s{background:var(--sky)}.b.p{background:var(--blue);color:#fff}
+.b:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.sheet{background:var(--card);border:2px solid var(--navy);border-radius:12px;padding:20px;margin-top:16px}
+.sheet h2{text-align:center;font-size:26px;margin:0}
+.sheet .sub{text-align:center;color:var(--soft);margin:0 0 12px;border-bottom:2px solid var(--navy);padding-bottom:12px}
+.net{background:rgba(100,116,139,.14);border-left:5px solid var(--navy);padding:8px 12px;font-weight:700;font-size:14px}
+.bar{background:var(--navy);color:#fff;font-weight:700;padding:9px 14px;border-radius:6px;margin:18px 0 12px;font-size:15px}
+.g2{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:640px){.g2{grid-template-columns:1fr 1fr}}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1 1 140px}
+label{display:block;font-weight:700;font-size:15px;margin-bottom:4px}
+label b{color:var(--blue)}
+input,select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--field);color:var(--ink);font:16px 'Sarabun',sans-serif}
+.c5{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.c5 span{display:block;font-size:13px;color:var(--soft)}
+.pt{border:1.5px solid var(--line);border-left:8px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px;background:var(--bg)}
+.pt[data-tag="แดง"]{border-left-color:#DC2626}.pt[data-tag="เหลือง"]{border-left-color:#EAB308}.pt[data-tag="เขียว"]{border-left-color:#16A34A}.pt[data-tag="ดำ"]{border-left-color:#111}
+.pth{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;color:var(--blue);font-weight:700}
+.pth div{display:flex;gap:8px;align-items:center}.pth select{width:auto}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chips label{display:flex;align-items:center;gap:6px;font-weight:600;font-size:14px;border:1.5px solid var(--line);border-radius:999px;padding:4px 10px;margin:0;background:var(--card);cursor:pointer}
+.chips input{width:auto}
+.out{margin-top:16px}
+.out textarea{min-height:200px;font-family:ui-monospace,Menlo,monospace;font-size:14px}
+details.ps{margin-top:12px;border:1.5px solid var(--navy);border-radius:10px;background:var(--card)}
+details.ps>summary{cursor:pointer;font-weight:700;padding:10px 14px;background:var(--navy);color:#fff;border-radius:8px}
+details.ps[open]>summary{border-radius:8px 8px 0 0}
+.psb{padding:14px}
+.psb h4{margin:16px 0 8px;font-size:16px;border-bottom:1.5px solid var(--line);padding-bottom:4px}
+.body{display:block;width:100%;max-width:360px;margin:0 auto;touch-action:manipulation;cursor:crosshair}
+.body rect,.body circle.h{fill:none;stroke:var(--soft);stroke-width:2}
+.tabs3{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.lg{display:grid;grid-template-columns:1fr 110px 38px;gap:6px;margin-bottom:6px}
+.lg button{padding:0}
+.cards{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:760px){.cards{grid-template-columns:1fr 1fr}}
+.card{background:#fff;color:#111;border:2px solid #111;border-radius:6px;padding:14px;font-size:14px;position:relative;min-width:0}
+.card input,.card select{background:transparent;color:#111;border:0;border-bottom:1px dotted #555;border-radius:0;padding:2px 4px;font:14px 'Sarabun',sans-serif;min-width:0}
+.card input[type=checkbox]{width:18px;height:18px}
+.card .hole{position:absolute;top:10px;left:10px;width:20px;height:20px;border:1.5px solid #111;border-radius:50%}
+.card .hole.r{left:auto;right:10px}
+.card .emb{width:54px;height:54px;border:3px double #111;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:26px}
+.card .ct{text-align:center;font-weight:700;font-size:18px;margin:4px 0 8px}
+.card .ct2{font-weight:700;margin-top:8px}
+.card .sm{font-size:12px;color:#444}
+.card .ln{display:flex;gap:6px;align-items:flex-end;margin-bottom:4px}
+.card .ln input,.card .ln select{flex:1;width:100%}
+.card .ln span{white-space:nowrap}
+.card .ck{display:flex;align-items:center;gap:4px;white-space:nowrap;margin:0;font-weight:400;font-size:14px}
+.inj{display:flex;gap:8px;align-items:flex-start;margin:4px 0}
+.inj>div{flex:1;min-width:0}
+.inj .body{max-width:none}
+.ty{border-collapse:collapse;font-size:12px;flex:0 0 auto}
+.ty td{border:1px solid #111;padding:2px 6px;height:26px}
+.ty td:first-child{width:30px;text-align:center;padding:0}
+.card .body rect,.card .body circle.h{stroke:#333}
+.card .body text{fill:#333}
+.tabs4{display:grid;grid-template-columns:repeat(3,1fr);border-top:1.5px solid #111;margin-top:8px;text-align:center}
+.th{font-size:12px;padding:4px 0;border-right:1px dashed #111;line-height:1.3}
+.tcol .tab{display:block;width:100%;height:42px;border:1px dashed #111;border-radius:0;font:700 14px 'Sarabun',sans-serif;cursor:pointer;padding:0}
+.tab.on{outline:3px solid #2563EB;outline-offset:-3px}
+.hd{display:grid;grid-template-columns:1fr 110px 38px;gap:6px;border-bottom:1.5px solid #111;margin-top:8px}
+.card .lg input{border-bottom:1px solid #111}
+.vt{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+.vt th,.vt td{border:1px solid #111;padding:0}
+.vt th{text-align:left;padding:2px 6px;font-weight:600;white-space:nowrap}
+.vt input{width:100%}
+.ph{margin-top:14px}
+.phb{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pl{display:inline-flex;align-items:center;gap:6px;position:relative;cursor:pointer}
+.pl:focus-within{outline:3px solid var(--blue);outline-offset:2px}
+.vh{position:absolute;opacity:0;width:1px;height:1px;overflow:hidden}
+.thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.th1{position:relative;width:96px;height:96px;border-radius:8px;overflow:hidden;border:1.5px solid var(--line);cursor:zoom-in}
+.th1 img{width:100%;height:100%;object-fit:cover;display:block}
+.th1.big{width:100%;height:auto;max-width:480px;cursor:zoom-out}
+.th1.big img{height:auto;object-fit:contain}
+.th1 button{position:absolute;top:4px;right:4px;padding:2px 9px}
+.stub .ln{display:block}
+.stub .ln span{display:block;font-weight:600}
+.stub .ln input{display:block;margin-bottom:8px;width:100%}
+.cards{display:block}
+.cards .card{display:none;max-width:560px;margin:0 auto}
+.psb[data-pg="0"] .cards .card:nth-child(1),.psb[data-pg="1"] .cards .card:nth-child(2),.psb[data-pg="2"] .cards .card:nth-child(3){display:block}
+.pgs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.pgs button{flex:1 1 120px;padding:10px;border-radius:10px;border:1.5px solid var(--navy);background:var(--card);color:var(--ink);font:700 15px 'Sarabun',sans-serif;cursor:pointer}
+.pgs button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.tabbar{display:flex;gap:6px;margin-top:12px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0}
+.tabbar button{flex:1;padding:12px 6px;border-radius:10px;border:2px solid var(--navy);background:var(--card);color:var(--ink);font:700 15px 'Sarabun',sans-serif;cursor:pointer}
+.tabbar button[aria-selected="true"]{background:var(--navy);color:#fff}
+body[data-tab="0"] .sheet:not([data-t="0"]),body[data-tab="1"] .sheet:not([data-t="1"]),body[data-tab="2"] .sheet:not([data-t="2"]){display:none}
+:root{--bg:#F0EBF8;--navy:#673AB7;--blue:#673AB7;--line:#DADCE0}
+.top{border:0;border-top:10px solid #673AB7;border-radius:8px;box-shadow:0 1px 2px rgba(60,64,67,.3)}
+.top h1{font-size:30px;font-weight:600}
+.sheet{border:0;border-radius:8px;box-shadow:0 1px 2px rgba(60,64,67,.3);padding:24px}
+.sheet h2{text-align:left;font-size:24px}
+.sheet .sub{text-align:left;border-bottom:1px solid var(--line)}
+.net{background:#F8F5FD;border-left-color:#673AB7;color:#4A2C8F}
+.bar{background:#fff;color:#673AB7;border:0;border-left:6px solid #673AB7;border-bottom:1px solid var(--line);border-radius:0;font-size:17px}
+.sheet>.g2>div{border:1px solid var(--line);border-radius:8px;padding:16px;background:#fff}
+.sheet>.c5{border:1px solid var(--line);border-radius:8px;padding:16px;background:#fff}
+.sheet>.g2 input,.sheet>.g2 select,.sheet>.c5 select,.pt>input,.pt .g2 input{border:0;border-bottom:1px solid #BDC1C6;border-radius:0;background:transparent;padding:8px 2px}
+.pt{background:#fff;border-radius:8px;box-shadow:0 1px 2px rgba(60,64,67,.3)}
+.b{border-radius:4px}
+.tabbar{background:#fff;border-radius:8px;box-shadow:0 1px 2px rgba(60,64,67,.3);padding:0;gap:0;overflow:hidden}
+.tabbar button{border:0;border-bottom:3px solid transparent;border-radius:0;background:transparent;color:#5F6368}
+.tabbar button[aria-selected="true"]{background:transparent;color:#673AB7;border-bottom-color:#673AB7}
+.pgnav{display:flex;justify-content:space-between;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+.pgnav .b{padding:12px 18px;font-size:16px}
+.b.gh{background:#fff;color:#673AB7;border:1.5px solid #673AB7}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal[hidden]{display:none}
+.mbox{background:#fff;color:#111;border-radius:8px;max-width:520px;width:100%;max-height:85vh;overflow:auto;padding:20px}
+.mbox h3{margin:0 0 8px;font-size:20px}
+.mbox ul{padding-left:20px;margin:8px 0}
+.mbtn{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;position:sticky;bottom:-20px;background:#fff;padding:8px 0}
+.ck2{display:flex;gap:8px;align-items:flex-start;font-weight:600;margin-top:12px}
+.ck2 input{width:auto;margin-top:6px}
+.b[disabled]{opacity:.45;cursor:not-allowed}
+.tagbtns{display:grid;gap:8px;margin-top:12px}
+.tagbtns button{padding:16px;border:0;border-radius:8px;font:700 18px 'Sarabun',sans-serif;cursor:pointer;text-align:left}
+.tagbtns small{display:block;font-weight:400;font-size:14px}
+footer{text-align:center;color:var(--soft);font-size:13px;padding:20px 0 40px}
+.hint{color:var(--soft);font-size:14px;margin:6px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+<div><h1>Field Casualty Care System NOMS 116</h1><div style="font-weight:600;color:var(--soft)">แบบฟอร์ม 9-Line MEDEVAC & MIST</div><small id="ind">กำลังเชื่อมต่อ...</small></div>
+<div class="acts">
+<button class="b r" id="clr">ล้างข้อมูล</button>
+</div>
+</div>
+
+<div class="tabbar" role="tablist" id="tabbar"><button role="tab" data-top="0" aria-selected="true">1 · 9-Line MEDEVAC</button><button role="tab" data-top="1" aria-selected="false">2 · ผู้ป่วย (MIST / พส.๑)</button><button role="tab" data-top="2" aria-selected="false">3 · ข้อความรายงาน</button></div>
+<div class="sheet">
+<h2>9-LINE MEDEVAC REQUEST</h2>
+<p class="sub">TACTICAL COMBAT CASUALTY CARE (TCCC)</p>
+<div class="net">- CLEAR THE NET FOR 9-LINE MEDEVAC REQUESTING, OVER -</div>
+<div class="bar">LINE 1 - 5 (TRANSMIT INITIALLY)</div>
+<div class="g2">
+<div><label><b>LINE 01</b> Location of Pickup Site (พิกัด):</label><input data-k="l1" placeholder="เช่น 47Q ET 1234 5678"></div>
+<div><label><b>LINE 02</b> Radio Freq &amp; Call Sign (ความถี่/นามเรียกขาน):</label><input data-k="l2" placeholder="เช่น 46.50 MHz / ALPHA 1-1"></div>
+</div>
+<label style="margin-top:12px"><b>LINE 03</b> Patients Precedence (ความเร่งด่วน): จำนวนคนต่อระดับ</label>
+<div class="c5" id="l3"></div>
+<div class="g2" style="margin-top:12px">
+<div><label><b>LINE 04</b> Special Equipment (อุปกรณ์พิเศษ):</label><select data-k="l4" data-o="o4"></select></div>
+<div><label><b>LINE 05</b> Patient Type (ประเภทผู้ป่วย):</label>
+<div class="row"><div><span style="font-size:13px;color:var(--soft)">L - Litter (นอนเปล)</span><select data-k="l5L" data-o="cnt"></select></div><div><span style="font-size:13px;color:var(--soft)">A - Ambulatory (เดินได้)</span><select data-k="l5A" data-o="cnt"></select></div></div></div>
+</div>
+<div class="bar">LINE 6 - 9 (CAN BE TRANSMITTED EN ROUTE)</div>
+<div class="g2">
+<div><label><b>LINE 06</b> Security of Pickup Site (ความปลอดภัย):</label><select data-k="l6" data-o="o6"></select></div>
+<div><label><b>LINE 07</b> Method &amp; Color of Marking (เครื่องหมาย/สี):</label><div class="row"><select data-k="l7a" data-o="o7a"></select><select data-k="l7c" data-o="o7c"></select></div></div>
+<div><label><b>LINE 08</b> Nationality &amp; Status (สัญชาติ/สถานะ):</label><select data-k="l8" data-o="o8"></select></div>
+<div><label><b>LINE 09</b> NBC / Terrain (สิ่งปนเปื้อน/ภูมิประเทศ):</label><select data-k="l9" data-o="o9"></select><input data-k="l9t" placeholder="รายละเอียดภูมิประเทศ (ถ้ามี)" style="margin-top:6px"></div>
+</div>
+</div>
+
+<div class="sheet">
+<h2>MIST PREPARATION (รายงานผู้ป่วย)</h2>
+<p class="sub">TACTICAL COMBAT CASUALTY CARE (TCCC)</p>
+<div class="bar" style="display:flex;justify-content:space-between;align-items:center;margin-top:0">รายการผู้ป่วย<button class="b p" id="add">+ เพิ่มผู้ป่วย</button></div>
+<div id="pts"></div>
+</div>
+
+<div class="sheet out">
+<div class="acts" style="margin-bottom:14px"><button class="b g" id="c9">คัดลอก 9-Line</button><button class="b s" id="cm">คัดลอก MIST</button><button class="b p" id="cc">คัดลอกบัตร พส.๑</button></div>
+<label for="out">ข้อความรายงาน (แตะคัดลอกจากปุ่มด้านบน หรือเลือกข้อความเองได้)</label>
+<textarea id="out" readonly placeholder="กดปุ่มคัดลอก 9-Line หรือ MIST เพื่อสร้างข้อความ"></textarea>
+<p class="hint" id="msg"></p>
+<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--line)"><button class="b p" id="sb" style="font-size:17px;padding:14px 28px">ส่งรายงาน</button><p class="hint">ส่งข้อมูลผู้ป่วยทั้งหมดเข้าฐานข้อมูล จะมีหน้าให้ตรวจสอบและยืนยันก่อนส่งจริง</p></div>
+<div id="cfm" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="cfmT"><div class="mbox"><h3 id="cfmT">ยืนยันการส่งรายงาน</h3><div id="cfmBody"></div><div class="mbtn"><button class="b gh" id="cfmNo">ยกเลิก</button><button class="b p" id="cfmGo" disabled>ยืนยันและส่งรายงาน</button></div></div></div>
+</div>
+<footer>Field Casualty Care System NOMS 116 · 9-LINE MEDEVAC &amp; MIST HELPER · ใช้เป็นเครื่องช่วยร่างรายงาน ไม่ใช่ระบบส่งจริง ข้อมูลใช้ร่วมกับทุกคนที่เปิดลิงก์นี้และมีสิทธิ์แก้ไข อย่าใส่ข้อมูลจริงของบุคคลหากยังไม่ได้รับอนุญาต</footer>
+</div>
+
+<div id="tagm" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="tagT"><div class="mbox"><h3 id="tagT">เลือกแถบสีผู้ป่วยก่อนเพิ่ม</h3><p style="margin:0">คัดแยกผู้ป่วยรายนี้ตามระดับความเร่งด่วน</p><div class="tagbtns" id="tagbtns"></div><div class="mbtn"><button class="b gh" id="tagNo">ยกเลิก</button></div></div></div>
+<script>
+var O={
+ cnt:['0','1','2','3','4','5','6','7','8','9','10'],
+ o4:['A - ไม่ใช้','B - รอก/เครื่องกว้าน','C - อุปกรณ์กู้ภัย','D - เครื่องช่วยหายใจ'],
+ o6:['N - ไม่มีฝ่ายตรงข้าม','P - อาจมีฝ่ายตรงข้าม','E - มีฝ่ายตรงข้าม (เข้าด้วยความระวัง)','X - มีฝ่ายตรงข้าม (ต้องมีกำลังคุ้มกัน)'],
+ o7a:['A - แผงผ้าสัญญาณ','B - พลุสัญญาณ','C - ควันสี','D - ไม่มี','E - อื่น ๆ'],
+ o7c:['-- เลือกสีสัญญาณ --','แดง','เขียว','เหลือง','ขาว','อื่น ๆ'],
+ o8:['A - ทหารฝ่ายเดียวกัน','B - พลเรือนฝ่ายเดียวกัน','C - ทหารต่างชาติ/พันธมิตร','D - พลเรือนต่างชาติ','E - เชลยศึก'],
+ o9:['N - ไม่มี / ภูมิประเทศปกติ','N - นิวเคลียร์','B - ชีวภาพ','C - เคมี']
+};
+var PRE=[['a','A - ด่วนที่สุด (≤2 ชม.)'],['b','B - ด่วน/ต้องผ่าตัด'],['c','C - เร่งด่วน (≤4 ชม.)'],['d','D - ปกติ (≤24 ชม.)'],['e','E - ตามสะดวก']];
+var CH=['M ห้ามเลือด','A ทางเดินหายใจ','R การหายใจ','C ไหลเวียน','H ศีรษะ/อุณหภูมิ','P ปวด','A ยาปฏิชีวนะ','W ทำแผล','S ดาม'];
+var TAG=['-- ระบุแถบสี --','แดง','เหลือง','เขียว','ดำ'];
+var K='march-paws-medevac-v1',D={l:{},p:[]},ok=true;
+try{var s=localStorage.getItem(K);if(s)D=JSON.parse(s)}catch(e){ok=false}
+function save(){window.pf=0;try{localStorage.setItem(K,JSON.stringify(D));ok=true}catch(e){try{localStorage.setItem(K,JSON.stringify(D,function(a,b){return a==='ph'?undefined:b}));ok=true;window.pf=1}catch(e2){ok=false}}
+ document.getElementById('ind').textContent=ok?(window.pf?'บันทึกข้อความแล้ว แต่พื้นที่เก็บรูปเต็ม รูปจะหายเมื่อปิดหน้านี้':'บันทึกอัตโนมัติแล้ว (Auto Saved)'):'บันทึกอัตโนมัติไม่พร้อมใช้ในเบราว์เซอร์นี้ ให้คัดลอกข้อความเก็บไว้'}
+function opts(a,v){return a.map(function(x){return '<option'+(x===v?' selected':'')+'>'+x+'</option>'}).join('')}
+function esc(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+// เติมตัวเลือกของ select
+document.querySelectorAll('select[data-o]').forEach(function(el){el.innerHTML=opts(O[el.dataset.o],D.l[el.dataset.k])});
+document.querySelectorAll('[data-k]').forEach(function(el){if(el.tagName==='INPUT'&&D.l[el.dataset.k])el.value=D.l[el.dataset.k]});
+document.getElementById('l3').innerHTML=PRE.map(function(p){return '<div><span>'+p[1]+'</span><select data-k="l3'+p[0]+'" data-o="cnt"></select></div>'}).join('');
+document.querySelectorAll('#l3 select').forEach(function(el){el.innerHTML=opts(O.cnt,D.l[el.dataset.k])});
+function newP(){return{id:pid(),ord:Date.now(),n:'',tag:TAG[0],m:'',i:'',s:'',t:'',c:[0,0,0,0,0,0,0,0,0],ph:[],k:{pts:[],ty:[0,0,0,0,0,0,0],log:[1,2,3,4,5,6].map(function(){return{t:'',o:''}}),vt:[1,2,3].map(function(){return{dt:'',bp:'',pr:'',gcs:''}})}}}
+
+D.p.forEach(function(p){if(!p.ph)p.ph=[];if(!p.k)p.k=newP().k;if(!p.k.vt){var o=p.k;p.k.vt=newP().k.vt;p.k.vt[0]={dt:o.ldt||'',bp:o.bp||'',pr:o.pr||'',gcs:o.gcs||''}}});
+var TY=['Spinal','Blunt trauma','Burn','Fracture','Laceration','Penetrating injury','Head injury'];
+var CT=['-- สี --','ดำ','แดง','เหลือง','เขียว'],E1=['-','1','2','3','4'],V1=['-','1','2','3','4','5'],M1=['-','1','2','3','4','5','6'];
+var FIG='<circle class="h" cx="50" cy="16" r="12"/><rect x="30" y="32" width="40" height="62" rx="9"/><rect x="12" y="34" width="14" height="58" rx="7"/><rect x="74" y="34" width="14" height="58" rx="7"/><rect x="31" y="96" width="17" height="102" rx="8"/><rect x="52" y="96" width="17" height="102" rx="8"/>';
+function body(k){return '<svg class="body" viewBox="0 0 200 215" role="img" aria-label="แผนภาพร่างกาย แตะเพื่อทำเครื่องหมายตำแหน่งบาดแผล"><g>'+FIG+'</g><g transform="translate(100,0)">'+FIG+'</g><text x="50" y="212" text-anchor="middle" font-size="11" fill="var(--soft)">หน้า</text><text x="150" y="212" text-anchor="middle" font-size="11" fill="var(--soft)">หลัง</text>'+k.pts.map(function(d,j){return '<circle data-dj="'+j+'" cx="'+d[0]+'" cy="'+d[1]+'" r="6" fill="#DC2626" stroke="#fff" stroke-width="1.5"/>'}).join('')+'</svg>'}
+function kf(i,f,l,t,ph){return '<div><label>'+l+'</label><input data-i="'+i+'" data-kf="'+f+'"'+(t?' type="'+t+'"':'')+(ph?' placeholder="'+ph+'"':'')+' value="'+esc(D.p[i].k[f])+'"></div>'}
+function ks(i,f,l,a){return '<div><label>'+l+'</label><select data-i="'+i+'" data-kf="'+f+'">'+opts(a,D.p[i].k[f])+'</select></div>'}
+function gcsTxt(k){var e=+k.E,v=+k.V,m=+k.M;return(e&&v&&m)?'GCS รวม = '+(e+v+m)+' (E'+e+' V'+v+' M'+m+')':'GCS รวม: เลือก E, V, M ให้ครบเพื่อคำนวณ'}
+function logHtml(i){return D.p[i].k.log.map(function(l,j){return '<div class="lg"><input data-i="'+i+'" data-li="'+j+'" data-lf="t" placeholder="บันทึกการรักษา" value="'+esc(l.t)+'"><input data-i="'+i+'" data-li="'+j+'" data-lf="o" placeholder="ผู้ปฏิบัติ" value="'+esc(l.o)+'"><button class="b r" data-dellog="'+i+':'+j+'" aria-label="ลบแถว">×</button></div>'}).join('')}
+function ps(p,i){var k=p.k;
+ return '<details class="ps"><summary>บัตร พส.๑ (บัตรคัดแยกผู้บาดเจ็บ)</summary><div class="psb">'+
+ '<h4>ด้านหน้า</h4><p class="hint" style="margin:0 0 8px">ยศ-ชื่อ-สกุลและสาเหตุการบาดเจ็บใช้ข้อมูลจากช่องด้านบน</p>'+
+ '<div class="g2">'+kf(i,'date','ว./ด./ป.','date')+kf(i,'time','เวลา','time')+'</div>'+
+ '<div style="margin-top:8px">'+kf(i,'unit','สังกัด',0,'เช่น ร.๑๓ พัน.๒')+'</div>'+
+ '<h4>CHECK TYPE OF INJURIES (ชนิดการบาดเจ็บ)</h4><div class="chips">'+TY.map(function(x,j){return '<label><input type="checkbox" data-i="'+i+'" data-ty="'+j+'"'+(k.ty[j]?' checked':'')+'>'+x+'</label>'}).join('')+'</div>'+
+ '<h4>ตำแหน่งบาดแผล (แตะบนรูปเพื่อทำเครื่องหมาย แตะจุดอีกครั้งเพื่อลบ)</h4><div id="bd'+i+'">'+body(k)+'</div>'+
+ '<h4>ความรู้สึกตัว</h4><div class="row">'+ks(i,'E','E (ลืมตา)',E1)+ks(i,'V','V (พูด)',V1)+ks(i,'M','M (เคลื่อนไหว)',M1)+'</div><p class="hint" id="gcs'+i+'">'+gcsTxt(k)+'</p>'+
+ '<div style="margin-top:8px">'+kf(i,'sign','ลงชื่อ')+'</div>'+
+ '<h4>แถบสีจุดคัดแยก</h4><div class="tabs3">'+ks(i,'a1','COLLECTING AREA · TRIAGE',CT)+ks(i,'a2','CARE AREA · FIRST AID',CT)+ks(i,'a3','MEDEVAC · RETRIAGE',CT)+'</div>'+
+ '<h4>ด้านหลัง: บันทึกการรักษา</h4>'+
+ '<div class="g2"><div class="chips" style="margin:0"><label><input type="checkbox" data-i="'+i+'" data-kc="mo"'+(k.mo?' checked':'')+'>MO (มอร์ฟีน) ให้แล้ว</label></div>'+kf(i,'moT','เวลา','time')+
+ '<div class="chips" style="margin:0"><label><input type="checkbox" data-i="'+i+'" data-kc="tq"'+(k.tq?' checked':'')+'>Tourniquet ใส่แล้ว</label></div>'+kf(i,'tqT','เวลา','time')+'</div>'+
+ '<p class="hint">มอร์ฟีนอาจกดการหายใจ ควรเฝ้าติดตามการหายใจหลังให้ยา</p>'+
+ '<div id="lg'+i+'" style="margin-top:8px">'+logHtml(i)+'</div><button class="b p" data-addlog="'+i+'" style="padding:6px 12px">+ เพิ่มแถว</button>'+
+ '<div class="g2" style="margin-top:10px">'+kf(i,'ldt','วันเวลา')+kf(i,'bp','ความดัน')+kf(i,'pr','ชีพจร / หายใจ')+kf(i,'gcs','GCS')+'</div>'+
+ '<div class="g2" style="margin-top:8px">'+kf(i,'ret','ส่งกลับโดย')+kf(i,'hosp','รพ.')+'</div><div style="margin-top:8px">'+kf(i,'retT','วันเวลาที่ส่งกลับ')+'</div>'+
+ '</div></details>'}
+var TB=[['a1','COLLECTING AREA','TRIAGE'],['a2','CARE AREA','FIRST AID'],['a3','MEDEVAC','RETRIAGE']],TC=[['ดำ','#000','#fff'],['แดง','#E8321F','#fff'],['เหลือง','#FFFF4D','#111'],['เขียว','#4CAF50','#111']];
+function tabsHtml(i){var k=D.p[i].k;return TB.map(function(c){return '<div class="tcol"><div class="th">'+c[1]+'<br>'+c[2]+'</div>'+TC.map(function(t){var on=k[c[0]]===t[0];return '<button class="tab'+(on?' on':'')+'" style="background:'+t[1]+';color:'+t[2]+'" data-tab="'+i+':'+c[0]+':'+t[0]+'" aria-pressed="'+on+'" aria-label="'+c[1]+' '+t[0]+'">'+(on?'✓ '+t[0]:'')+'</button>'}).join('')+'</div>'}).join('')}
+function vtHtml(i){var k=D.p[i].k,R=[['dt','วันเวลา'],['bp','ความดัน'],['pr','ชีพจร / หายใจ'],['gcs','GCS']];return '<table class="vt">'+R.map(function(r){return '<tr><th>'+r[1]+'</th>'+[0,1,2].map(function(c){return '<td><input data-i="'+i+'" data-vi="'+c+'" data-vf="'+r[0]+'" value="'+esc(k.vt[c][r[0]])+'" aria-label="'+r[1]+' ครั้งที่ '+(c+1)+'"></td>'}).join('')+'</tr>'}).join('')+'</table>'}
+function ps(p,i){var k=p.k,pg=PGS[p.id||i]||'0';
+ function ln(l,x){return '<div class="ln"><span>'+l+'</span>'+x+'</div>'}
+ function inp(f,t,kk){return '<input data-i="'+i+'" '+(kk?'data-kf="':'data-f="')+f+'"'+(t?' type="'+t+'"':'')+' value="'+esc(kk?k[f]:p[f])+'">'}
+ function es(f,a){return '<select data-i="'+i+'" data-kf="'+f+'" aria-label="'+f+'">'+opts(a,k[f])+'</select>'}
+ return '<details class="ps" open><summary>บัตร พส.๑ (กรอกในบัตร)</summary><div class="psb" data-pid="'+(p.id||i)+'" data-pg="'+pg+'"><div class="pgs">'+[['0','หน้า 1 · ด้านหน้า'],['1','หน้า 2 · ด้านหลัง'],['2','หน้า 3 · ริมบัตร']].map(function(x){return '<button data-pg="'+x[0]+'" aria-pressed="'+(pg===x[0])+'">'+x[1]+'</button>'}).join('')+'</div><div class="cards">'+
+ '<div class="card"><span class="hole"></span><div class="emb">⚕</div><div class="ct">พส.๑</div>'+
+ ln('ว./ด./ป.',inp('date','date',1)+'<span>เวลา</span>'+inp('time','time',1))+
+ ln('ยศ-ชื่อ-สกุล',inp('n')+'<span>สังกัด</span>'+inp('unit',0,1))+
+ ln('สาเหตุการบาดเจ็บ',inp('m'))+
+ '<div class="ct2">ตำแหน่งบาดแผล</div><div class="sm">CHECK TYPE OF INJURIES · แตะรูปร่างกายเพื่อปักจุดบาดแผล แตะจุดเดิมเพื่อลบ</div>'+
+ '<div class="inj"><table class="ty">'+TY.map(function(x,j){return '<tr><td><input type="checkbox" data-i="'+i+'" data-ty="'+j+'"'+(k.ty[j]?' checked':'')+' aria-label="'+x+'"></td><td>'+x+'</td></tr>'}).join('')+'</table><div id="bd'+i+'">'+body(k)+'</div></div>'+
+ '<div class="ln"><span>ความรู้สึกตัว E</span>'+es('E',E1)+'<span>V</span>'+es('V',V1)+'<span>M</span>'+es('M',M1)+'</div><div class="sm" id="gcs'+i+'">'+gcsTxt(k)+'</div>'+
+ ln('ลงชื่อ',inp('sign',0,1))+'<div class="tabs4" id="tb'+i+'">'+tabsHtml(i)+'</div></div>'+
+ '<div class="card"><span class="hole r"></span><div class="ct" style="font-size:16px">บันทึกการรักษา</div>'+
+ '<div class="ln"><label class="ck"><input type="checkbox" data-i="'+i+'" data-kc="mo"'+(k.mo?' checked':'')+'>MO เวลา</label>'+inp('moT','time',1)+'<label class="ck"><input type="checkbox" data-i="'+i+'" data-kc="tq"'+(k.tq?' checked':'')+'>Tourniquet เวลา</label>'+inp('tqT','time',1)+'</div>'+
+ '<div class="sm">MO (มอร์ฟีน) อาจกดการหายใจ ควรเฝ้าติดตามการหายใจ</div>'+
+ '<div class="hd"><b>บันทึกการรักษา</b><b>ผู้ปฏิบัติ</b><span></span></div><div id="lg'+i+'">'+logHtml(i)+'</div><button class="b p" data-addlog="'+i+'" style="padding:6px 12px;margin:6px 0">+ เพิ่มแถว</button>'+
+ vtHtml(i)+ln('ส่งกลับโดย',inp('ret',0,1)+'<span>รพ.</span>'+inp('hosp',0,1))+ln('วันเวลา',inp('retT',0,1))+'</div>'+
+ '<div class="card stub"><div class="ct" style="font-size:16px">ส่วนริมบัตร (ฉีกเก็บ)</div><div class="sm" style="margin-bottom:8px">ข้อมูลชุดเดียวกับริมบัตรซ้ายและขวา ชื่อ สังกัด และ รพ. ดึงจากช่องอื่นในบัตร</div>'+ln('ยศ-ชื่อ-สกุล',inp('n'))+ln('สังกัด',inp('unit',0,1))+ln('การวินิจฉัยโรค',inp('sdx',0,1))+ln('ลักษณะการเจ็บป่วยที่สำคัญ',inp('sill',0,1))+ln('รพ.ที่ส่ง',inp('hosp',0,1))+'</div>'+
+ '</div></div></details>'}
+function thumbs(i){var a=D.p[i].ph;return a.length?a.map(function(s,j){return '<div class="th1"><img src="'+s+'" alt="รูปที่ '+(j+1)+'" data-big="'+i+':'+j+'"><button class="b r" data-delph="'+i+':'+j+'" aria-label="ลบรูปที่ '+(j+1)+'">×</button></div>'}).join(''):'<p class="hint" style="margin:0">ยังไม่มีรูปแนบ</p>'}
+function photos(p,i){if(!AS&&DB)return '';return '<div class="ph"><div class="phb"><b>รูปภาพ</b><label class="b s pl">📷 ถ่ายภาพ<input class="vh" type="file" accept="image/*" capture="environment" data-ph="'+i+'"></label><label class="b p pl">🖼️ แนบรูปภาพ<input class="vh" type="file" accept="image/*" multiple data-ph="'+i+'"></label></div><div class="thumbs" id="th'+i+'">'+thumbs(i)+'</div></div>'}
+function shrink(f,cb){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var s=Math.min(1,1000/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);c.toBlob(function(b){cb(b)},'image/jpeg',.72)};im.onerror=function(){cb(null)};im.src=r.result};r.onerror=function(){cb(null)};r.readAsDataURL(f)}
+var DB=null,U=null,AS=null,wr=true,rF=0,rP=0,pendR=0,savL='{}',sav={},gone={};
+function ST(o){return JSON.stringify(o,function(k,v){if(v&&typeof v==='object'&&!Array.isArray(v)){var r={};Object.keys(v).sort().forEach(function(x){r[x]=v[x]});return r}return v})}
+function pid(){return 'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function ind(m){document.getElementById('ind').textContent=m;if(/^(กำลังส่ง|ส่งรายงาน|ไม่มีข้อมูลใหม่|ยังไม่มีผู้ป่วย)/.test(m))document.getElementById('msg').textContent=m}
+function lockRO(){wr=false;ind('ดูได้อย่างเดียว: ต้องได้รับสิทธิ์ผู้ร่วมแก้ไข (Contributor) จึงจะกรอกได้');document.querySelectorAll('.sheet:not(.out)').forEach(function(e){e.inert=true})}
+function save(){clearTimeout(save.t);save.t=setTimeout(flush,700);if(DB&&wr)ind('กำลังบันทึก...')}
+async function flush(){
+ if(!DB){try{localStorage.setItem('march-paws-local-v2',JSON.stringify(D));ind('บันทึกในเครื่องนี้แล้ว')}catch(e){try{localStorage.setItem('march-paws-local-v2',JSON.stringify(D,function(a,b){return a==='ph'?undefined:b}));ind('บันทึกข้อความแล้ว แต่พื้นที่เก็บรูปเต็ม รูปจะหายเมื่อปิดหน้านี้')}catch(e2){ind('บันทึกอัตโนมัติไม่พร้อมใช้ในเบราว์เซอร์นี้ ให้คัดลอกข้อความเก็บไว้')}}return}
+ if(!wr)return;
+ if(!rF||!rP){save();return}
+ try{
+  var sl=ST(D.l);if(sl!==savL){await DB.doc('forms/main').set({l:D.l});savL=sl}
+  for(var i=0;i<D.p.length;i++){var p=D.p[i],s=ST(p);if(sav[p.id]!==s){await DB.doc('patients/'+p.id).set(JSON.parse(s));sav[p.id]=s}}
+  for(var id in sav){if(!D.p.some(function(q){return q.id===id})){await DB.doc('patients/'+id).delete();delete sav[id];delete gone[id]}}
+  ind('บันทึกร่วมกันแล้ว')
+ }catch(e){if(e&&e.code==='invalid_argument')lockRO();else ind('บันทึกไม่สำเร็จ ('+(e&&e.code||'error')+') จะลองใหม่เมื่อมีการแก้ไขครั้งถัดไป')}
+}
+var PGS={};
+function normP(c){var d=newP();if(!c.ph)c.ph=[];if(!c.c)c.c=d.c;if(!c.k)c.k=d.k;['pts','ty','log','vt'].forEach(function(f){if(!c.k[f])c.k[f]=d.k[f]})}
+function inPts(){var a=document.activeElement;return !!(a&&a.closest&&a.closest('#pts'))}
+function applyL(){document.querySelectorAll('[data-k]').forEach(function(el){if(el===document.activeElement)return;var v=D.l[el.dataset.k];if(el.tagName==='SELECT'){var o=O[el.dataset.o];el.value=(v&&o&&o.indexOf(v)>=0)?v:(o?o[0]:'')}else el.value=v||''})}
+function onF(s){var d=s.exists?s.data():null;rF=1;if(!d||!d.l)return;var sl=ST(d.l);if(sl===savL||ST(D.l)!==savL)return;D.l=JSON.parse(JSON.stringify(d.l));savL=sl;applyL()}
+function onP(s){
+ var seen={},chg=false;
+ s.docs.forEach(function(d){var o=d.data();if(!o||gone[d.id])return;seen[d.id]=1;var r=ST(o),i=D.p.findIndex(function(p){return p.id===d.id});
+  if(i<0){var c=JSON.parse(JSON.stringify(o));c.id=d.id;normP(c);D.p.push(c);sav[d.id]=r;chg=true}
+  else if(sav[d.id]!==r&&ST(D.p[i])===sav[d.id]){var c2=JSON.parse(JSON.stringify(o));c2.id=d.id;normP(c2);D.p[i]=c2;sav[d.id]=r;chg=true}
+ });
+ D.p=D.p.filter(function(p){if(seen[p.id]||!(p.id in sav))return true;if(ST(p)===sav[p.id]){delete sav[p.id];chg=true;return false}return true});
+ D.p.sort(function(a,b){return(a.ord||0)-(b.ord||0)});
+ rP=1;
+ if(chg){if(inPts())pendR=1;else renderP()}
+}
+function err(e){ind('การเชื่อมต่อขัดข้อง ('+(e&&e.code||'')+')')}
+document.addEventListener('focusout',function(){setTimeout(function(){if(pendR&&!inPts()){pendR=0;renderP()}},300)});
+function setTab(n){document.body.dataset.tab=n;document.querySelectorAll('#tabbar button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.top==n)});window.scrollTo(0,0)}
+var NM=['9-Line MEDEVAC','ผู้ป่วย (MIST / พส.๑)','ข้อความรายงาน'];
+document.querySelectorAll('.sheet').forEach(function(s,i){s.dataset.t=i;var nv=document.createElement('div');nv.className='pgnav';nv.innerHTML=(i>0?'<button class="b gh" data-go="'+(i-1)+'">← ย้อนกลับ</button>':'<span></span>')+(i<2?'<button class="b p" data-go="'+(i+1)+'">ถัดไป: '+NM[i+1]+' →</button>':'');s.appendChild(nv)});
+document.addEventListener('click',function(e){var g=e.target.closest&&e.target.closest('[data-go]');if(g)setTab(+g.dataset.go)});
+function sbRow(p,id){var k=p.k||{},l=D.l||{};
+ function v(x){return x&&x.indexOf('--')<0&&x!=='-'?x:null}
+ var ty=TY.filter(function(x,j){return k.ty&&k.ty[j]}).join(', ')||null,
+ done=CH.filter(function(c,j){return p.c&&p.c[j]}).map(function(c){return c.split(' ')[0]}).join(' ')||null,
+ lg=(k.log||[]).filter(function(x){return x.t||x.o}).map(function(x){return (x.t||'-')+(x.o?' ('+x.o+')':'')}).join('\n')||null,
+ vt=(k.vt||[]).map(function(c,j){return (c.dt||c.bp||c.pr||c.gcs)?'ครั้งที่ '+(j+1)+': วันเวลา '+(c.dt||'-')+' / ความดัน '+(c.bp||'-')+' / ชีพจร-หายใจ '+(c.pr||'-')+' / GCS '+(c.gcs||'-'):''}).filter(Boolean).join('\n')||null,
+ e=+k.E,vv=+k.V,m=+k.M,
+ pre=PRE.map(function(q){var n=l['l3'+q[0]]||'0';return n!=='0'?q[1]+' จำนวน '+n+' คน':''}).filter(Boolean).join(', ')||null;
+ return{"รหัสผู้ป่วย":id,"ยศ_ชื่อ_สกุล":p.n||null,"สังกัด":k.unit||null,"แถบสีคัดแยก":v(p.tag),"สาเหตุการบาดเจ็บ":p.m||null,"แผลที่ได้รับ":p.i||null,"สัญญาณชีพ":p.s||null,"การรักษาที่ให้":p.t||null,
+ "วันที่ในบัตร":k.date||null,"เวลาในบัตร":k.time||null,"ชนิดการบาดเจ็บ":ty,"จำนวนจุดบาดแผลบนรูป":(k.pts||[]).length,"ความรู้สึกตัว_E":v(k.E),"ความรู้สึกตัว_V":v(k.V),"ความรู้สึกตัว_M":v(k.M),"คะแนน_GCS":(e&&vv&&m)?e+vv+m:null,
+ "แถบสี_จุดรวบรวม":v(k.a1),"แถบสี_จุดปฐมพยาบาล":v(k.a2),"แถบสี_ส่งกลับ":v(k.a3),
+ "ให้มอร์ฟีนแล้ว":k.mo?'ใช่':'ไม่ใช่',"เวลาให้มอร์ฟีน":k.moT||null,"ใส่ที่รัดห้ามเลือดแล้ว":k.tq?'ใช่':'ไม่ใช่',"เวลาใส่ที่รัดห้ามเลือด":k.tqT||null,
+ "ขั้นตอนที่ทำแล้ว_MARCH_PAWS":done,"บันทึกการรักษา":lg,"สัญญาณชีพต่อเนื่อง":vt,"การวินิจฉัยโรค":k.sdx||null,"ลักษณะการเจ็บป่วยที่สำคัญ":k.sill||null,"โรงพยาบาลที่ส่ง":k.hosp||null,"ส่งกลับโดย":k.ret||null,"วันเวลาส่งกลับ":k.retT||null,"ลงชื่อ":k.sign||null,
+ "ไลน์1_พิกัด":l.l1||null,"ไลน์2_ความถี่_นามเรียกขาน":l.l2||null,"ไลน์3_ความเร่งด่วน":pre,"ไลน์4_อุปกรณ์พิเศษ":l.l4||O.o4[0],"ไลน์5_ประเภทผู้ป่วย":'นอนเปล '+(l.l5L||'0')+' / เดินได้ '+(l.l5A||'0'),"ไลน์6_ความปลอดภัย":l.l6||O.o6[0],"ไลน์7_เครื่องหมาย":(l.l7a||O.o7a[0])+(l.l7c&&l.l7c.indexOf('--')<0?' สี'+l.l7c:''),"ไลน์8_สัญชาติ_สถานะ":l.l8||O.o8[0],"ไลน์9_สิ่งปนเปื้อน_ภูมิประเทศ":(l.l9||O.o9[0])+(l.l9t?' ('+l.l9t+')':'')}}
+var SB_URL='https://skmudnfekkyuydvukhxs.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrbXVkbmZla2t5dXlkdnVraHhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI2MzAwNzYsImV4cCI6MjEwODIwNjA3Nn0.H4fbtS4r0_-8ZDb1WzVtyoYyzm8Kf5UfVuwwTKriHP4',sentS={};
+function doSend(){
+ var rows=[],keys=[],skip=0;
+ D.p.forEach(function(p,i){var c=JSON.parse(JSON.stringify(p));delete c.ph;var s=JSON.stringify(c),id=p.id||('i'+i);if(sentS[id]===s){skip++;return}keys.push([id,s]);rows.push(sbRow(p,id))});
+ if(!rows.length){ind(D.p.length?'ไม่มีข้อมูลใหม่ให้ส่ง (ส่งไปแล้วทั้งหมด)':'ยังไม่มีผู้ป่วยให้ส่ง');return}
+ ind('กำลังส่ง '+rows.length+' ราย...');
+ fetch(SB_URL+'/rest/v1/'+encodeURIComponent('ข้อมูลผู้ป่วย'),{method:'POST',headers:{'Content-Type':'application/json',apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,Prefer:'return=minimal'},body:JSON.stringify(rows)}).then(function(r){
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  keys.forEach(function(k){sentS[k[0]]=k[1]});ind('ส่งรายงานแล้ว '+rows.length+' ราย'+(skip?' (ข้าม '+skip+' รายที่ส่งไปแล้ว)':''))
+ }).catch(function(e){ind('ส่งรายงานไม่สำเร็จ ('+e.message+') หน้านี้อาจถูกจำกัดการส่งข้อมูลออกนอกเว็บ ให้ใช้เวอร์ชันบน GitHub Pages')});
+};
+function openCfm(){
+ var n=D.p.length;
+ if(!n){ind('ยังไม่มีผู้ป่วยให้ส่ง');return}
+ var pend=0,items=D.p.map(function(p,i){var c=JSON.parse(JSON.stringify(p));delete c.ph;var id=p.id||('i'+i),sent=sentS[id]===JSON.stringify(c);if(!sent)pend++;return '<li><b>'+esc(p.n||'(ไม่ระบุชื่อ)')+'</b> · แถบสี '+esc(p.tag&&p.tag.indexOf('--')<0?p.tag:'ยังไม่ระบุ')+' · สาเหตุ '+esc(p.m||'-')+(sent?' <i>(ส่งไปแล้ว ไม่เปลี่ยนแปลง)</i>':'')+'</li>'}).join('');
+ if(!pend){ind('ไม่มีข้อมูลใหม่ให้ส่ง (ส่งไปแล้วทั้งหมด)');return}
+ var l=D.l||{};
+ document.getElementById('cfmBody').innerHTML='<p>ตรวจสอบข้อมูลก่อนส่ง จะส่ง <b>'+pend+'</b> จากผู้ป่วย '+n+' ราย</p><ul>'+items+'</ul><p><b>9-Line:</b> พิกัด '+esc(l.l1||'-')+' · ความถี่/นามเรียกขาน '+esc(l.l2||'-')+'</p><label class="ck2"><input type="checkbox" id="cfmOk"> ฉันตรวจสอบข้อมูลถูกต้องแล้ว และต้องการส่งรายงาน</label>';
+ var go=document.getElementById('cfmGo');go.disabled=true;
+ document.getElementById('cfmOk').onchange=function(){go.disabled=!this.checked};
+ document.getElementById('cfm').hidden=false;
+ document.getElementById('cfmOk').focus();
+}
+document.getElementById('sb').onclick=openCfm;
+document.getElementById('cfmNo').onclick=function(){document.getElementById('cfm').hidden=true};
+document.getElementById('cfmGo').onclick=function(){document.getElementById('cfm').hidden=true;doSend()};
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.getElementById('cfm').hidden=true;document.getElementById('tagm').hidden=true}});
+document.getElementById('tabbar').onclick=function(e){var b=e.target.closest('button');if(b)setTab(b.dataset.top)};
+setTab(0);
+function renderP(){
+ document.getElementById('pts').innerHTML=(D.p.length?'':'<p class="hint">ยังไม่มีผู้ป่วย กด + เพิ่มผู้ป่วย</p>')+D.p.map(function(p,i){
+  return '<div class="pt" data-tag="'+esc(p.tag)+'"><div class="pth"><span>ผู้ป่วยคนที่ '+(i+1)+'</span><div><select data-i="'+i+'" data-f="tag" aria-label="แถบสีผู้ป่วย">'+opts(TAG,p.tag)+'</select>'+
+  (D.p.length>1?'<button class="b r" data-del="'+i+'" style="padding:6px 10px">ลบ</button>':'')+'</div></div>'+
+  '<label>Patient Info (ชื่อ-นามสกุล / ยศ / หมายเลขประจำตัว):</label><input data-i="'+i+'" data-f="n" value="'+esc(p.n)+'" placeholder="เช่น จ.ส.อ. สมชาย ใจดี / ID: 12345678">'+
+  '<div class="g2" style="margin-top:10px">'+
+  '<div><label>M - Mechanism of Injury (สาเหตุการบาดเจ็บ):</label><input data-i="'+i+'" data-f="m" value="'+esc(p.m)+'" placeholder="เช่น IED, Gunshot wound (GSW), Fall"></div>'+
+  '<div><label>I - Injury Sustained (แผล/ตำแหน่งที่บาดเจ็บ):</label><input data-i="'+i+'" data-f="i" value="'+esc(p.i)+'" placeholder="เช่น Right leg amputation, Shrapnel wound"></div>'+
+  '<div><label>S - Signs (Vital Signs / สัญญาณชีพ):</label><input data-i="'+i+'" data-f="s" value="'+esc(p.s)+'" placeholder="เช่น BP 110/70, HR 115, RR 22, Pulse Ox 95%"></div>'+
+  '<div><label>T - Treatment Given (การรักษาที่ให้ไปแล้ว):</label><input data-i="'+i+'" data-f="t" value="'+esc(p.t)+'" placeholder="เช่น CAT Tourniquet 14:30, Chest seal"></div></div>'+
+  '<div class="chips">'+CH.map(function(c,j){return '<label><input type="checkbox" data-i="'+i+'" data-c="'+j+'"'+(p.c[j]?' checked':'')+'>'+c+'</label>'}).join('')+'</div>'+ps(p,i)+photos(p,i)+'</div>'}).join('');
+}
+renderP();
+function onChange(e){
+ var t=e.target;
+ if(t.dataset.k){D.l[t.dataset.k]=t.value;save();return}
+ if(t.dataset.i!==undefined){var p=D.p[+t.dataset.i];
+  if(t.dataset.kf){p.k[t.dataset.kf]=t.value;document.querySelectorAll('input[data-i="'+t.dataset.i+'"][data-kf="'+t.dataset.kf+'"]').forEach(function(x){if(x!==t&&x.type!=='checkbox')x.value=t.value});if(t.dataset.kf.length===1){var gx=document.getElementById('gcs'+t.dataset.i);if(gx)gx.textContent=gcsTxt(p.k)}}
+  else if(t.dataset.kc)p.k[t.dataset.kc]=t.checked?1:0;
+  else if(t.dataset.ty!==undefined)p.k.ty[+t.dataset.ty]=t.checked?1:0;
+  else if(t.dataset.lf)p.k.log[+t.dataset.li][t.dataset.lf]=t.value;
+  else if(t.dataset.vf)p.k.vt[+t.dataset.vi][t.dataset.vf]=t.value;
+  else if(t.dataset.c!==undefined)p.c[+t.dataset.c]=t.checked?1:0;
+  else{p[t.dataset.f]=t.value;if(t.dataset.f==='tag')t.closest('.pt').dataset.tag=t.value;else document.querySelectorAll('input[data-i="'+t.dataset.i+'"][data-f="'+t.dataset.f+'"]').forEach(function(x){if(x!==t)x.value=t.value})}
+  save()}
+}
+document.addEventListener('input',onChange);document.addEventListener('change',onChange);
+document.addEventListener('change',function(e){var t=e.target;if(t.dataset&&t.dataset.ph!==undefined&&t.files){var i=+t.dataset.ph,fs=[].slice.call(t.files);t.value='';fs.forEach(function(f){shrink(f,function(u){if(!u)return;function add(url){D.p[i].ph.push(url);save();var el=document.getElementById('th'+i);if(el)el.innerHTML=thumbs(i)}if(AS)AS.upload(u).then(function(r){add(r.url)}).catch(function(){ind('อัปโหลดรูปไม่สำเร็จ')});else{var fr=new FileReader();fr.onload=function(){add(fr.result)};fr.readAsDataURL(u)}})})}});
+var TG=[['แดง','#DC2626','#fff','ต้องรักษาทันที'],['เหลือง','#EAB308','#111','รอได้ชั่วคราว'],['เขียว','#16A34A','#fff','บาดเจ็บเล็กน้อย'],['ดำ','#111','#fff','เสียชีวิต / ไม่น่ารอดชีวิต']];
+document.getElementById('tagbtns').innerHTML=TG.map(function(t){return '<button style="background:'+t[1]+';color:'+t[2]+'" data-newtag="'+t[0]+'">แถบ'+t[0]+'<small>'+t[3]+'</small></button>'}).join('');
+document.getElementById('add').onclick=function(){document.getElementById('tagm').hidden=false;document.querySelector('#tagbtns button').focus()};
+document.getElementById('tagNo').onclick=function(){document.getElementById('tagm').hidden=true};
+document.getElementById('tagbtns').onclick=function(e){var b=e.target.closest('button');if(!b)return;var p=newP();p.tag=b.dataset.newtag;D.p.push(p);document.getElementById('tagm').hidden=true;save();renderP();var cs=document.querySelectorAll('#pts .pt');if(cs.length)cs[cs.length-1].scrollIntoView({block:'start'})};
+document.addEventListener('click',function(e){var t=e.target,ds=t.dataset||{};
+ if(ds.del!==undefined){var rm=D.p.splice(+ds.del,1)[0];if(rm)gone[rm.id]=1;save();renderP();return}
+ if(ds.pg!==undefined&&t.tagName==='BUTTON'){var pb=t.closest('.psb');if(pb){pb.dataset.pg=ds.pg;PGS[pb.dataset.pid]=ds.pg;pb.querySelectorAll('.pgs button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.pg===ds.pg)})}return}
+ if(ds.big!==undefined){t.parentNode.classList.toggle('big');return}
+ if(ds.delph!==undefined){var dq=ds.delph.split(':');D.p[+dq[0]].ph.splice(+dq[1],1);save();document.getElementById('th'+dq[0]).innerHTML=thumbs(+dq[0]);return}
+ if(ds.tab!==undefined){var tq=ds.tab.split(':'),tk=D.p[+tq[0]].k;tk[tq[1]]=tk[tq[1]]===tq[2]?'':tq[2];save();document.getElementById('tb'+tq[0]).innerHTML=tabsHtml(+tq[0]);return}
+ if(ds.addlog!==undefined){D.p[+ds.addlog].k.log.push({t:'',o:''});save();document.getElementById('lg'+ds.addlog).innerHTML=logHtml(+ds.addlog);return}
+ if(ds.dellog!==undefined){var q=ds.dellog.split(':');D.p[+q[0]].k.log.splice(+q[1],1);save();document.getElementById('lg'+q[0]).innerHTML=logHtml(+q[0]);return}
+ var sv=t.closest&&t.closest('svg.body');
+ if(sv){var wrap=sv.parentNode,i=+wrap.id.slice(2),k=D.p[i].k;
+  if(ds.dj!==undefined)k.pts.splice(+ds.dj,1);
+  else{var r=sv.getBoundingClientRect();k.pts.push([Math.round((e.clientX-r.left)/r.width*200),Math.round((e.clientY-r.top)/r.height*215)])}
+  save();wrap.innerHTML=body(k)}
+});
+var armed=false,clr=document.getElementById('clr');
+clr.onclick=function(){
+ if(!armed){armed=true;clr.textContent='แตะอีกครั้งเพื่อยืนยัน';setTimeout(function(){armed=false;clr.textContent='ล้างข้อมูล'},3000);return}
+ D.p.forEach(function(p){gone[p.id]=1});D.p=[];D.l={};applyL();renderP();save();armed=false;clr.textContent='ล้างข้อมูล';
+};
+function g(k,d){return D.l[k]||d||'-'}
+function r9(){
+ var pre=PRE.map(function(p){var n=g('l3'+p[0],'0');return n!=='0'?p[1].split(' ')[0]+' x'+n:''}).filter(Boolean).join(', ')||'-';
+ return ['9-LINE MEDEVAC REQUEST','L1 พิกัด: '+g('l1'),'L2 ความถี่/นามเรียกขาน: '+g('l2'),'L3 ความเร่งด่วน: '+pre,'L4 อุปกรณ์พิเศษ: '+g('l4',O.o4[0]),
+ 'L5 ประเภทผู้ป่วย: นอนเปล '+g('l5L','0')+' / เดินได้ '+g('l5A','0'),'L6 ความปลอดภัย: '+g('l6',O.o6[0]),
+ 'L7 เครื่องหมาย: '+g('l7a',O.o7a[0])+(D.l.l7c&&D.l.l7c.indexOf('--')<0?' สี'+D.l.l7c:''),'L8 สถานะ: '+g('l8',O.o8[0]),
+ 'L9 NBC/ภูมิประเทศ: '+g('l9',O.o9[0])+(D.l.l9t?' ('+D.l.l9t+')':'')].join('\n');
+}
+function rm(){
+ return 'MIST REPORT\n\n'+D.p.map(function(p,i){
+  var done=CH.filter(function(c,j){return p.c[j]}).map(function(c){return c.split(' ')[0]}).join(' ')||'-';
+  return 'ผู้ป่วยคนที่ '+(i+1)+(p.tag.indexOf('--')<0?' [แถบ'+p.tag+']':'')+'\nข้อมูล: '+(p.n||'-')+'\nM: '+(p.m||'-')+'\nI: '+(p.i||'-')+'\nS: '+(p.s||'-')+'\nT: '+(p.t||'-')+'\nMARCH PAWS ที่ทำแล้ว: '+done}).join('\n\n');
+}
+function copy(txt){
+ var o=document.getElementById('out'),m=document.getElementById('msg');o.value=txt;
+ function fb(){o.removeAttribute('readonly');o.select();var r=false;try{r=document.execCommand('copy')}catch(e){}o.setAttribute('readonly','');
+  m.textContent=r?'คัดลอกแล้ว':'คัดลอกอัตโนมัติไม่ได้ ให้เลือกข้อความในช่องแล้วคัดลอกเอง'}
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(function(){m.textContent='คัดลอกแล้ว'},fb);else fb();
+ o.scrollIntoView({block:'nearest'});
+}
+function rcard(){
+ function v(x){return x&&x.indexOf('--')<0&&x!=='-'?x:'-'}
+ return 'บัตร พส.๑\n\n'+D.p.map(function(p,i){var k=p.k;
+  var ty=TY.filter(function(x,j){return k.ty[j]}).join(', ')||'-';
+  var lg=k.log.filter(function(l){return l.t||l.o}).map(function(l){return '  - '+(l.t||'-')+(l.o?' ('+l.o+')':'')}).join('\n')||'  -';
+  return 'ผู้ป่วยคนที่ '+(i+1)+'\nว./ด./ป.: '+(k.date||'-')+'  เวลา: '+(k.time||'-')+'\nยศ-ชื่อ-สกุล: '+(p.n||'-')+'  สังกัด: '+(k.unit||'-')+'\nสาเหตุการบาดเจ็บ: '+(p.m||'-')+'\nชนิดการบาดเจ็บ: '+ty+'\nตำแหน่งบาดแผล: '+(k.pts.length?'ทำเครื่องหมาย '+k.pts.length+' จุด':'-')+'\nความรู้สึกตัว: E'+v(k.E)+' V'+v(k.V)+' M'+v(k.M)+'\nลงชื่อ: '+(k.sign||'-')+'\nแถบสี: จุดรวบรวม '+v(k.a1)+' / จุดปฐมพยาบาล '+v(k.a2)+' / ส่งกลับ '+v(k.a3)+'\nMO (มอร์ฟีน): '+(k.mo?'ให้แล้ว เวลา '+(k.moT||'-'):'ไม่ได้ให้')+'  Tourniquet: '+(k.tq?'ใส่แล้ว เวลา '+(k.tqT||'-'):'ไม่ได้ใส่')+'\nบันทึกการรักษา:\n'+lg+'\nวันเวลา: '+(k.ldt||'-')+'  ความดัน: '+(k.bp||'-')+'  ชีพจร/หายใจ: '+(k.pr||'-')+'  GCS: '+(k.gcs||'-')+'\nส่งกลับโดย: '+(k.ret||'-')+'  รพ.: '+(k.hosp||'-')+'  วันเวลา: '+(k.retT||'-')}).join('\n\n');
+}
+document.getElementById('c9').onclick=function(){copy(r9())};
+function rcard(){
+ function v(x){return x&&x.indexOf('--')<0&&x!=='-'?x:'-'}
+ return 'บัตร พส.๑\n\n'+D.p.map(function(p,i){var k=p.k;
+  var ty=TY.filter(function(x,j){return k.ty[j]}).join(', ')||'-';
+  var lg=k.log.filter(function(l){return l.t||l.o}).map(function(l){return '  - '+(l.t||'-')+(l.o?' ('+l.o+')':'')}).join('\n')||'  -';
+  var vt=k.vt.map(function(c,j){return (c.dt||c.bp||c.pr||c.gcs)?'  ครั้งที่ '+(j+1)+': วันเวลา '+(c.dt||'-')+' / ความดัน '+(c.bp||'-')+' / ชีพจร-หายใจ '+(c.pr||'-')+' / GCS '+(c.gcs||'-'):''}).filter(Boolean).join('\n')||'  -';
+  return 'ผู้ป่วยคนที่ '+(i+1)+'\nว./ด./ป.: '+(k.date||'-')+'  เวลา: '+(k.time||'-')+'\nยศ-ชื่อ-สกุล: '+(p.n||'-')+'  สังกัด: '+(k.unit||'-')+'\nสาเหตุการบาดเจ็บ: '+(p.m||'-')+'\nชนิดการบาดเจ็บ: '+ty+'\nตำแหน่งบาดแผล: '+(k.pts.length?'ทำเครื่องหมาย '+k.pts.length+' จุด':'-')+'\nความรู้สึกตัว: E'+v(k.E)+' V'+v(k.V)+' M'+v(k.M)+'\nลงชื่อ: '+(k.sign||'-')+'\nการวินิจฉัยโรค: '+(k.sdx||'-')+'\nลักษณะการเจ็บป่วยที่สำคัญ: '+(k.sill||'-')+'\nแถบสีที่ฉีก: จุดรวบรวม '+v(k.a1)+' / จุดปฐมพยาบาล '+v(k.a2)+' / ส่งกลับ '+v(k.a3)+'\nMO (มอร์ฟีน): '+(k.mo?'ให้แล้ว เวลา '+(k.moT||'-'):'ไม่ได้ให้')+'  Tourniquet: '+(k.tq?'ใส่แล้ว เวลา '+(k.tqT||'-'):'ไม่ได้ใส่')+'\nบันทึกการรักษา:\n'+lg+'\nสัญญาณชีพ:\n'+vt+'\nส่งกลับโดย: '+(k.ret||'-')+'  รพ.: '+(k.hosp||'-')+'  วันเวลา: '+(k.retT||'-')}).join('\n\n');
+}
+document.getElementById('cc').onclick=function(){copy(rcard())};
+document.getElementById('cm').onclick=function(){copy(rm())};
+(async function(){
+ var c=window.claude,r=[];
+ try{if(c&&c.use)r=await Promise.all([c.use('db'),c.use('user'),c.use('assets')])}catch(e){}
+ DB=r[0]||null;U=r[1]||null;AS=r[2]||null;
+ if(!DB){try{var ls=localStorage.getItem('march-paws-local-v2');if(ls){D=JSON.parse(ls);D.l=D.l||{};D.p=D.p||[];D.p.forEach(normP);applyL()}}catch(e){}
+  document.querySelector('footer').textContent='Field Casualty Care System NOMS 116 · ตัวช่วยร่างรายงาน 9-Line MEDEVAC & MIST · ข้อมูลเก็บในเครื่องของคุณเท่านั้น ไม่ถูกส่งไปที่อื่น ไม่ใช่ระบบส่งจริง อย่าใส่ข้อมูลจริงของบุคคลหากไม่ได้รับอนุญาต';
+  renderP();ind('โหมดส่วนตัว: ข้อมูลบันทึกในเครื่องนี้เท่านั้น');return}
+ var w=null;try{w=await Promise.resolve(U&&U.can?U.can('data.write'):null)}catch(e){}
+ if(w===false)lockRO();
+ try{if(!(U&&U.canEdit&&await Promise.resolve(U.canEdit())))document.getElementById('clr').style.display='none'}catch(e){}
+ DB.doc('forms/main').onSnapshot(onF,err);
+ DB.collection('patients').onSnapshot(onP,err);
+ renderP();
+ if(wr)ind('เชื่อมต่อแล้ว ข้อมูลใช้ร่วมกับผู้ที่เปิดลิงก์นี้');
+ save();
+})();
+</script>
+</body>
+</html>
